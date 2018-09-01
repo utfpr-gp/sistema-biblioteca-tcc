@@ -1,0 +1,73 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.edu.utfpr.model;
+
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+/**
+ *
+ * @author Lucas
+ */
+
+@Entity
+public class Genero implements Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    //@NotEmpty
+    //@Size(min = 2, max = 255)
+    private String nome;
+    
+    //@NotEmpty
+    //@Size(min = 4, max = 20)
+    private String cor;
+    
+    //@NotEmpty
+    //@Size(min = 2, max = 30)
+    private String classificacao;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+    
+    public String getClassificacao()
+    {
+        return classificacao;
+    }
+    
+    public void setClassificacao(String classificacao)
+    {
+        this.classificacao = classificacao;
+    }
+    
+    
+}

@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template-principal.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1>Cadastro de Emprestimo</h1>
+        <p:messages></p:messages>
+        <h:form>
+                  
+              <div class="row">
+                <div class="input-field col s12">
+                    <h:selectOneMenu id="aluno" value="#{emprestimoBean.alunoId}">
+                        <f:selectItem itemValue="" itemLabel="Aluno"></f:selectItem>
+                        <f:selectItems var="aluno" value="#{alunoBean.findAll()}" itemValue="#{aluno.id}" itemLabel="#{aluno.nome}"/>
+                    </h:selectOneMenu>
+                    <label for="aluno" class="active">Aluno</label>
+                </div>
+            </div>
+            
+                  <div class="row">
+                <div class="input-field col s12">
+                    <h:selectOneMenu id="emprestimo" value="#{emprestimoBean.livroLiterarioId}">
+                        <f:selectItem itemValue="" itemLabel="Aluno"></f:selectItem>
+                        <f:selectItems var="livroLiterario" value="#{livroLiterarioBean.findAll()}" itemValue="#{livroLiterario.id}" itemLabel="#{livroLiterario.titulo}"/>
+                    </h:selectOneMenu>
+                    <label for="livro" class="active">Livro</label>
+                </div>
+            </div>
+            
+                             
+            <div class="row">
+                <h:commandLink action="#{emprestimoBean.persist()}" class="waves-effect waves-light btn red darken-3" value="Salvar"></h:commandLink>
+            </div>
+            
+            <div class="row">
+                <div class="col s12">
+                    <p:dataTable var="emprestimo" paginator="true" rows="100" value="#{emprestimoBean.emprestimoList}">
+                        <p:column headerText="Id" priority="4">
+                            <h:outputText  value="#{emprestimo.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Titulo">
+                            <h:outputText value="#{emprestimo.titulo}" />
+                        </p:column>                 
+
+                       <p:column headerText="Aluno" priority="3">
+                            <h:outputText value="#{livroDidatico.aluno}" />
+                        </p:column>
+
+                        <p:column headerText="Ano">
+                            <h:outputFormat value="#{livroDidatico.ano}" />
+                        </p:column>
+                        
+                          <p:column headerText="Serie">
+                            <h:outputFormat value="#{livroDidatico.serie}" >
+                      
+                            </h:outputFormat>
+                        </p:column>
+                        
+                          <p:column headerText="PNLD">
+                            <h:outputFormat value="#{livroDidatico.pnld}" >
+                               
+                            </h:outputFormat>
+                        </p:column>
+                       
+                        <p:column headerText="">
+                            <div class="row center">
+                                <div class="col s12">
+                                    <h:commandLink class="waves-effect waves-light btn blue darken-3 white-text">
+                                        <i class="material-icons">mode_edit</i>
+                                    </h:commandLink>
+                                </div>
+                                <div class="col s12">
+                                    <h:commandLink class="waves-effect waves-light btn red darken-3 white-text">
+                                        <i class="material-icons">delete_forever</i>
+                                    </h:commandLink>
+                                </div>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

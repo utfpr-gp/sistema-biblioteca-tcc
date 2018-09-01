@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template-cadastrar.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1>Cadastro de Livros Didaticos</h1>
+        <p:messages></p:messages>
+        <h:form>
+          
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-didatico-titulo" type="text" jsf:value="#{livroDidaticoBean.livroDidatico.titulo}"/>
+                    <label for="livro-didatico-titulo" class="active">Titulo</label>
+
+                </div>
+            </div>
+            
+              <div class="row">
+                <div class="input-field col s12">
+                    <h:selectOneMenu id="aluno" value="#{livroDidaticoBean.alunoId}">
+                        <f:selectItem itemValue="" itemLabel="Aluno"></f:selectItem>
+                        <f:selectItems var="aluno" value="#{alunoBean.findAll()}" itemValue="#{aluno.id}" itemLabel="#{aluno.nome}"/>
+                    </h:selectOneMenu>
+                    <label for="livro-didatico-aluno" class="active">Aluno</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-didatico-ano" type="text" jsf:value="#{livroDidaticoBean.livroDidatico.ano}"/>
+                    <label for="livro-didatico-ano" class="active">Ano</label>
+                </div>
+            </div>
+            
+             <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-didatico-serie" type="text" jsf:value="#{livroDidaticoBean.livroDidatico.serie}"/>
+                    <label for="livro-didatico-serie" class="active">Serie</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-didatico-pnld" type="text" jsf:value="#{livroDidaticoBean.livroDidatico.pnld}"/>
+                    <label for="livro-didatico-pnld" class="active">PNLD</label>
+                </div>
+            </div>
+                        
+            <div class="row">
+                <h:commandLink action="#{livroDidaticoBean.persist()}" class="waves-effect waves-light btn red darken-3" value="Salvar"></h:commandLink>
+            </div>
+            
+            <div class="row">
+                <div class="col s12">
+                    <p:dataTable var="livroDidatico" paginator="true" rows="100" value="#{livroDidaticoBean.livroDidaticoList}">
+                        <p:column headerText="Id" priority="4">
+                            <h:outputText  value="#{livroDidatico.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Titulo">
+                            <h:outputText value="#{livroDidatico.titulo}" />
+                        </p:column>                 
+
+                       <p:column headerText="Aluno" priority="3">
+                            <h:outputText value="#{livroDidatico.aluno}" />
+                        </p:column>
+
+                        <p:column headerText="Ano">
+                            <h:outputFormat value="#{livroDidatico.ano}" />
+                        </p:column>
+                        
+                          <p:column headerText="Serie">
+                            <h:outputFormat value="#{livroDidatico.serie}" >
+                      
+                            </h:outputFormat>
+                        </p:column>
+                        
+                          <p:column headerText="PNLD">
+                            <h:outputFormat value="#{livroDidatico.pnld}" >
+                               
+                            </h:outputFormat>
+                        </p:column>
+                       
+                        <p:column headerText="">
+                            <div class="row center">
+                                <div class="col s12">
+                                     <h:commandLink action="#{livroDidaticoBean.edit(livroDidatico)}" class="waves-effect waves-light btn red darken-3 white-text">    
+                                        <i class="material-icons">mode_edit</i>
+                                    </h:commandLink>
+                                </div>
+                                <div class="col s12">
+                                     <h:commandLink action="#{livroDidaticoBean.delete(livroDidatico)}" class="waves-effect waves-light btn red darken-3 white-text">
+                                        <i class="material-icons">delete_forever</i>
+                                    </h:commandLink>
+                                </div>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template-cadastrar.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1>Cadastro de Livro</h1>
+        <p:messages></p:messages>
+        <h:form>
+          
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-literario-titulo" type="text" jsf:value="#{livroLiterarioBean.livroLiterario.titulo}"/>
+                    <label for="livro-literario-titulo" class="active">Titulo</label>
+
+                </div>
+            </div>
+            
+             <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-literario-autor" type="text" jsf:value="#{livroLiterarioBean.livroLiterario.autor}"/>
+                    <label for="livro-literario-autor" class="active">Autor</label>
+
+                </div>
+            </div>
+            
+            
+              <div class="row">
+                <div class="input-field col s12">
+                    <h:selectOneMenu id="livro-literario-genero" value="#{livroLiterarioBean.generoId}">
+                        <f:selectItem itemValue="" itemLabel="Genero"></f:selectItem>
+                        <f:selectItems var="genero" value="#{generoBean.findAll()}" itemValue="#{genero.id}" itemLabel="#{genero.nome}"/>
+                    </h:selectOneMenu>
+                    <label for="livro-literario-genero" class="active">Genero</label>
+                </div>
+            </div>
+            
+             <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-literario-paginas" type="text" jsf:value="#{livroLiterarioBean.livroLiterario.paginas}"/>
+                    <label for="livro-literario-paginas" class="active">Numero de Paginas</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-literario-edicao" type="text" jsf:value="#{livroLiterarioBean.livroLiterario.edicao}"/>
+                    <label for="livro-literario-edicao" class="active">Edicao</label>
+                </div>
+            </div>
+            
+             <div class="row">
+                <div class="input-field col s12">
+                    <input id="livro-literario-ano" type="text" jsf:value="#{livroLiterarioBean.livroLiterario.ano}"/>
+                    <label for="livro-literario-ano" class="active">Ano</label>
+                </div>
+            </div>
+            
+                               
+            <div class="row">
+                <h:commandLink action="#{livroLiterarioBean.persist()}" class="waves-effect waves-light btn red darken-3" value="Salvar"></h:commandLink>
+            </div>
+            
+            <div class="row">
+                <div class="col s12">
+                    <p:dataTable var="livroLiterario" paginator="true" rows="100" value="#{livroLiterarioBean.findAll()}">
+                        <p:column headerText="Id" priority="4">
+                            <h:outputText  value="#{livroLiterario.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Titulo">
+                            <h:outputText value="#{livroLiterario.titulo}" />
+                        </p:column>                 
+
+                       <p:column headerText="Autor" priority="3">
+                            <h:outputText value="#{livroLiterario.autor}" />
+                        </p:column>
+
+                        <p:column headerText="Genero">
+                            <h:outputFormat value="#{livroLiterario.genero}" />
+                        </p:column>
+                        
+                          <p:column headerText="Paginas">
+                            <h:outputFormat value="#{livroLiterario.paginas}" />
+                        </p:column>
+                        
+                          <p:column headerText="Edicao">
+                            <h:outputFormat value="#{livroLiterario.edicao}" />                              
+                        </p:column>
+                        
+                          <p:column headerText="Ano">
+                            <h:outputFormat value="#{livroLiterario.ano}" />                              
+                        </p:column>
+                        
+                        
+                       
+                        <p:column headerText="">
+                            <div class="row center">
+                                <div class="col s12">
+                                    <h:commandLink action="#{livroLiterarioBean.edit(livroLiterario)}" class="waves-effect waves-light btn blue darken-3 white-text">
+                                        <i class="material-icons">mode_edit</i>
+                                    </h:commandLink>
+                                </div>
+                                <div class="col s12">
+                                    <h:commandLink action="#{livroLiterarioBean.delete(livroLiterario)}" class="waves-effect waves-light btn red darken-3 white-text">
+                                        <i class="material-icons">delete_forever</i>
+                                    </h:commandLink>
+                                </div>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+
