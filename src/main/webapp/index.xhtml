@@ -7,29 +7,36 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        
+
         <h1>Bem-Vindo ao sistema</h1>
-        
-        <p:growl id="growl" sticky="true" showDetail="true"/>
-                
-        <h:form>
-        <div class="row">
-            
-            <div class="row">
-                <div class="input-field col s12">
-                    <p:inputText value="#{login.email}"/>
-                    <label for="usuario">User</label>
-                </div>
-            
-                <div class="input-field col s12">
-                    <p:password value="#{login.senha}"/>
-                    <label for="password">Password</label>
+
+        <div jsf:id="div-messages" class="row" rendered="#{param['error'] == true}">
+            <div class="col s12">
+                <div class="card-panel teal">
+                    <span class="white-text">Não foi possível fazer o login. Tente novamente!
+                    </span>
                 </div>
             </div>
-            
-             <h:commandLink action="#{login.validarLogin()}" class="waves-effect waves-light btn red darken-3" value="Entrar"></h:commandLink>
         </div>
-            
+
+        <h:form>
+            <div class="row">
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p:inputText value="#{login.email}"/>
+                        <label for="usuario">User</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p:password value="#{login.senha}"/>
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+
+                <h:commandLink action="#{login.validarLogin()}" class="waves-effect waves-light btn red darken-3" value="Entrar"></h:commandLink>
+            </div>
+
         </h:form>
     </ui:define>
 

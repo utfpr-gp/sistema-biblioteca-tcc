@@ -1,7 +1,7 @@
-
 package br.edu.utfpr.controller;
 
 import br.edu.utfpr.util.RoleUtil;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -11,17 +11,15 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-
 @ManagedBean(name = "login")
 @SessionScoped
-public class LoginController {
-    
+public class LoginController implements Serializable {
+
     private String email;
     private String senha;
- 
-    public LoginController()
-    {
-        
+
+    public LoginController() {
+
     }
 
     public String getEmail() {
@@ -39,8 +37,8 @@ public class LoginController {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    public String invalidarLogin(){
+
+    public String invalidarLogin() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
@@ -49,29 +47,26 @@ public class LoginController {
         return "/index?faces-redirect=true";
         //return "/index?faces-redirect=false";
     }
-    
-    public String validarLogin()
-    {
+
+    public String validarLogin() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-        
+
         try {
-            request.login(email, senha); 
-            
-            if(request.isUserInRole(RoleUtil.ADMIN)){
-                return "admin/principal?faces-redirect=true";       
+            request.login(email, senha);
+
+            if (request.isUserInRole(RoleUtil.ADMIN)) {
+                return "admin/principal?faces-redirect=true";
+            } else {
+                return "biblio/principal?faces-redirect=true";
             }
-            else{
-                return "biblio/principal?faces-redirect=true";       
-            }
-            
-            
-        } catch (ServletException ex) {     
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            return "/index?faces-redirect=true";
-        }       
-        
-    }       
-        
+
+        } catch (ServletException ex) {
+            //Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            return "/index?faces-redirect=true&error=true";
+        }
+
+    }
+
 }
